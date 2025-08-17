@@ -14,4 +14,30 @@ An AI-powered **Internal Knowledge Assistant** designed to help users within an 
 - Analytics on frequently asked questions & documentation gaps.  
 - Building web portal where users log in, upload/search documents, and ask questions.
 
+# Overview of how it will work
+This is to help you understand the codebase.
+## Deployment
+
+Two docker containers will be used to run the project:
+- 'frontend' - will serve Streamlit app
+- 'backend' - will serve RESTFUL API which will handle search queries
+
+Use `docker compose up` to start the project.
+
+# Project Roadmap & Todo List
+
+## High Priority
+- [ ] foundation (security + ingestion + search)
+
+## Medium Priority
+- [ ] enhancements that make it more useful.
+
+## Low Priority
+- [ ] add-ons/future expansion.
+
+---
+**Legend:**
+- [x] Todo
+- [ ] Completed
+
 > This is a **work-in-progress project**. Contributions and ideas are welcome!  
