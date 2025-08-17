@@ -22,7 +22,7 @@ Two docker containers will be used to run the project:
 - 'frontend' - will serve Streamlit app
 - 'backend' - will serve RESTFUL API which will handle search queries
 
-Use `docker compose up` to start the project.
+You will use `docker compose up` to start the project.
 
 # Project Roadmap & Todo List
 
