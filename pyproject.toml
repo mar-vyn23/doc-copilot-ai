@@ -1,0 +1,21 @@
+[project]
+name = "rag-eval"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "langchain>=0.3.27",
+    "langchain-google-community[drive]>=2.0.7",
+    "langchain-groq>=0.3.7",
+    "langchain-huggingface>=0.3.1",
+    "langchain-openai>=0.3.28",
+    "langchain-tavily>=0.2.11",
+    "langgraph>=0.6.3",
+    "langgraph-supervisor>=0.0.29",
+    "langsmith>=0.4.10",
+    "pypdf2>=3.0.1",
+    "python-docx>=1.2.0",
+    "python-dotenv>=1.1.1",
+    "streamlit>=1.47.1",
+]
