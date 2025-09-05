@@ -1,9 +1,8 @@
 import streamlit as st
 import os
 import uuid
-import ast
 import dotenv
-from langchain_core.messages import HumanMessage, BaseMessage, AIMessage, ToolMessage
+from langchain_core.messages import HumanMessage, BaseMessage, ToolMessage
 from drive_agent import process_messages, State
 
 dotenv.load_dotenv()
@@ -20,7 +19,7 @@ if "state" not in st.session_state:
 for message in st.session_state.state["messages"]:
     message: BaseMessage
 
-    # Skip ToolMessage entirely (hidden from user)
+    # Skip ToolMessage entirely
     if isinstance(message, ToolMessage):
         continue
 

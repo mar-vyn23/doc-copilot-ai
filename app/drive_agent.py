@@ -2,13 +2,10 @@ import os
 import io
 import pickle
 from dotenv import load_dotenv
-from typing_extensions import TypedDict
-
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 from googleapiclient.discovery import build
 from googleapiclient.http import MediaIoBaseDownload
-
 from langchain_groq import ChatGroq
 from langchain.tools import tool
 from langgraph.graph import StateGraph
@@ -16,9 +13,9 @@ from langgraph.prebuilt.chat_agent_executor import AgentState, create_react_agen
 
 load_dotenv()
 
-# ======== Google Drive Auth Helper ======== #
+#Google Drive Auth Helper
 SCOPES = ["https://www.googleapis.com/auth/drive.readonly"]
-DRIVE_FOLDER_ID = os.getenv("DRIVE_FOLDER_ID")  # set in your .env
+DRIVE_FOLDER_ID = os.getenv("DRIVE_FOLDER_ID")
 
 
 def get_drive_service():
@@ -35,7 +32,7 @@ def get_drive_service():
             creds.refresh(Request())
         else:
             flow = InstalledAppFlow.from_client_secrets_file(
-                "credentials/client_secret.json", SCOPES
+                "credential/client_secret.json", SCOPES
             )
             creds = flow.run_local_server(port=0)
 
@@ -46,7 +43,7 @@ def get_drive_service():
     return build("drive", "v3", credentials=creds)
 
 
-# ======== File Fetching Logic ======== #
+#File Fetching Logic
 def fetch_drive_files(query: str, max_results: int = 5):
     """
     Search for files in the given Drive folder and return text snippets.
@@ -76,11 +73,6 @@ def fetch_drive_files(query: str, max_results: int = 5):
                 # Google Docs → export as plain text
                 doc = service.files().export(fileId=file_id, mimeType="text/plain").execute()
                 content = doc.decode("utf-8")
-
-            elif mime == "application/vnd.google-apps.spreadsheet":
-                # Google Sheets → export as CSV
-                sheet = service.files().export(fileId=file_id, mimeType="text/csv").execute()
-                content = sheet.decode("utf-8")
 
             elif mime == "application/pdf":
                 # PDFs → download and extract
@@ -123,12 +115,12 @@ def fetch_drive_files(query: str, max_results: int = 5):
         except Exception as e:
             content = f"[Error reading file {name}: {str(e)}]"
 
-        texts.append(f"📄 {name}\n{content[:2000]}")  # grab up to 2000 chars
+        texts.append(f"{name}\n{content[:2000]}") 
 
     return texts
 
 
-# ======== LangChain setup ======== #
+#LangChain setup
 model = ChatGroq(
     api_key=os.getenv("GROQ_API_KEY"),
     model="llama-3.1-8b-instant",
@@ -145,7 +137,6 @@ def drive_search(query: str) -> str:
     docs = fetch_drive_files(query)
     if not docs:
         return "No matching files found."
-    # Limit to first 5 docs
     return "\n\n".join(docs[:5])
 
 
@@ -155,7 +146,8 @@ supervisor_graph: StateGraph = create_react_agent(
     model=model,
     prompt=(
         "You are a helpful assistant. You have access to a Google Drive folder called "
-        "\"Mak Policies\". You can use the relevant documents within this folder to onboard a new employee. "
+        "\"Mak Policies\". You can use the relevant documents within this folder" 
+        "To onboard a new employee of Makerere University. "
         "When you don't know an answer, you MUST call the tool `drive_search` with the query. "
         "Do not attempt to summarize or write content in the same step as the tool call. "
         "Wait until the tool returns data, then summarize in your next step. "
