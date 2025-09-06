@@ -10,9 +10,8 @@ An AI-powered **Internal Knowledge Assistant** designed to help users within an 
 ### Planned Features
 - Importing documents from multiple sources (Google drive, Dropbox, onedrive)
 - AI-powered search & Q&A with source citations.  
-- Role-based access control for secure usage.  
 - Analytics on frequently asked questions & documentation gaps.  
-- Building web portal where users log in, upload/search documents, and ask questions.
+- Building web portal where ask questions.
 
 # Overview of how it will work
 This is to help you understand the codebase.
@@ -20,9 +19,9 @@ This is to help you understand the codebase.
 
 Two docker containers will be used to run the project:
 - 'frontend' - will serve Streamlit app
-- 'backend' - will serve RESTFUL API which will handle search queries
+- 'backend' - will serve tools and agents which will handle search queries
 
-You will use `docker compose up` to start the project.
+We will use `docker compose up` to start the project.
 
 # Project Roadmap & Todo List
 
